@@ -1,3 +1,4 @@
+const { body, validationResult } = require('express-validator');
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
     if (req.query.type) filter.type = req.query.type;
     if (req.query.city) filter.city = req.query.city;
 
-    const reports = await Report.find(filter)
+const reports = await Report.find(filter)
       .populate('submittedBy', 'name')
       .sort({ createdAt: -1 });
 
@@ -38,8 +39,18 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', protect, upload.single('photo'), async (req, res) => {
+router.post('/', protect, upload.single('photo'), [
+  body('type').isIn(['electricity', 'wifi', 'water', 'road', 'other']).withMessage('Invalid report type'),
+  body('description').notEmpty().withMessage('Description is required').isLength({ max: 500 }).withMessage('Description cannot exceed 500 characters'),
+  body('lat').notEmpty().withMessage('Location is required').isNumeric().withMessage('Invalid coordinates'),
+  body('lng').notEmpty().withMessage('Location is required').isNumeric().withMessage('Invalid coordinates'),
+], async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array()[0].msg });
+    }
+
     const { type, description, lat, lng, address, city } = req.body;
 
     if (!type || !description || !lat || !lng) {
@@ -60,7 +71,6 @@ router.post('/', protect, upload.single('photo'), async (req, res) => {
     });
 
     res.status(201).json(report);
-
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
