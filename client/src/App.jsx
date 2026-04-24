@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import MapPage from './pages/MapPage';
 import FeedPage from './pages/FeedPage';
 import SubmitPage from './pages/SubmitPage';
@@ -9,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<MapPage />} />
         <Route path="/feed" element={<FeedPage />} />
