@@ -76,8 +76,8 @@ export default function MapPage() {
       )}
 
       <MapContainer
-        center={[9.0249, 38.7469]}
-        zoom={6}
+        center={[9.5931, 41.8661]} 
+        zoom={12}
         className="flex-1 z-0"
       >
         <TileLayer
