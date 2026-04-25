@@ -23,6 +23,7 @@ export default function Navbar() {
         <div className="hidden sm:flex gap-4 text-sm items-center">
           <Link to="/" className="hover:text-yellow-400 transition">Map</Link>
           <Link to="/feed" className="hover:text-yellow-400 transition">Feed</Link>
+          <Link to="/about" className="hover:text-yellow-400 transition">About</Link>
           {user ? (
             <>
               <Link to="/submit" className="hover:text-yellow-400 transition">+ Report</Link>
@@ -49,6 +50,7 @@ export default function Navbar() {
         <div className="sm:hidden flex flex-col gap-3 pt-3 pb-1 text-sm border-t border-gray-700 mt-3">
           <Link to="/" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">Map</Link>
           <Link to="/feed" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">Feed</Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">About</Link>
           {user ? (
             <>
               <Link to="/submit" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">+ Report</Link>

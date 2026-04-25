@@ -46,4 +46,8 @@ const reportSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
+reportSchema.index({ type: 1, city: 1, isActive: 1 });
+reportSchema.index({ submittedBy: 1 });
+reportSchema.index({ expiresAt: 1 });
+
 module.exports = mongoose.model('Report', reportSchema);

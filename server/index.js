@@ -10,6 +10,13 @@ const rateLimit = require('express-rate-limit');
 
 dotenv.config();
 
+['PORT', 'MONGO_URI', 'JWT_SECRET'].forEach(key => {
+  if (!process.env[key]) {
+    console.error(` Missing required environment variable: ${key}`);
+    process.exit(1);
+  }
+});
+
 const app = express();
 
 const limiter = rateLimit({
