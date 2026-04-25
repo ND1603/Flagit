@@ -152,4 +152,15 @@ router.delete('/:id', protect, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+router.get('/my-reports', protect, async (req, res) => {
+  try {
+    const reports = await Report.find({ submittedBy: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.json(reports);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 module.exports = router;
