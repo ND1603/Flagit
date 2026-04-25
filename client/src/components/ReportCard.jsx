@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import categoryConfig from '../categoryConfig';
 import formatTimeAgo from '../timeHelper';
 import { useAuth } from '../context/AuthContext';
@@ -8,15 +9,19 @@ export default function ReportCard({ report, onUpvote }) {
   const cfg = categoryConfig[report.type];
 
   const handleUpvote = async () => {
-    if (!user) return alert('Please login to confirm a report');
-    try {
-      const { data } = await api.put(`/reports/${report._id}/upvote`);
-      onUpvote(data);
-    } catch (err) {
-      console.error('Upvote failed:', err);
-    }
-  };
-
+  if (!user) {
+    toast.error('Please login to confirm a report');
+    return;
+  }
+  try {
+    const { data } = await api.put(`/reports/${report._id}/upvote`);
+    onUpvote(data);
+    toast.success('Confirmation updated!');
+  } catch (err) {
+    toast.error('Failed to update confirmation');
+    console.error('Upvote failed:', err);
+  }
+};
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
 

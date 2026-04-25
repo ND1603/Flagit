@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
@@ -59,8 +60,10 @@ export default function SubmitPage() {
       await api.post('/reports', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
+       toast.success('Report submitted successfully!');
       navigate('/');
     } catch (err) {
+      toast.error(err.response?.data?.message || 'Something went wrong');
       setError(err.response?.data?.message || 'Something went wrong');
     } finally {
       setLoading(false);
@@ -68,7 +71,7 @@ export default function SubmitPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 pb-12">
+    <div className="max-w-2xl mx-auto p-4 pb-12 page-enter">
       <h1 className="text-2xl font-bold text-gray-900 mb-1">
         📍 Submit a Report
       </h1>

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import MapPage from './pages/MapPage';
 import FeedPage from './pages/FeedPage';
@@ -11,6 +12,23 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          success: {
+            style: {
+              background: '#1a1a2e',
+              color: '#fff',
+            },
+          },
+          error: {
+            style: {
+              background: '#ef4444',
+              color: '#fff',
+            },
+          },
+        }}
+      />
       <Routes>
         <Route path="/" element={<MapPage />} />
         <Route path="/feed" element={<FeedPage />} />
