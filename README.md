@@ -333,14 +333,17 @@ Delete a report. Only the original submitter can delete their own report.
 
 ## 📸 Screenshots
 
-> *Add screenshots of your app here after deployment*
+### 🗺️ Map Page
+![Map Page](./screenshots/map.png)
 
-```
-Map page     → /screenshots/map.png
-Feed page    → /screenshots/feed.png
-Submit form  → /screenshots/submit.png
-Profile page → /screenshots/profile.png
-```
+### 📋 Feed Page
+![Feed Page](./screenshots/feed.png)
+
+### 📝 Submit Report
+![Submit Page](./screenshots/submit.png)
+
+### 👤 Profile Page
+![Profile Page](./screenshots/profile.png)
 
 ---
 
