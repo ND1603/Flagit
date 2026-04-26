@@ -182,6 +182,13 @@ This adds 15 sample reports across Addis Ababa, Hawassa, and Dire Dawa.
 Local:      http://localhost:5000/api
 Production: https://habroch-api.up.railway.app/api
 ```
+POST   /api/auth/register    → Register a new user
+POST   /api/auth/login       → Login and get token
+GET    /api/reports          → Get all active reports
+POST   /api/reports          → Submit a report (auth required)
+PUT    /api/reports/:id/upvote → Upvote a report (auth required)
+GET    /api/reports/my-reports → Get your own reports (auth required)
+DELETE /api/reports/:id      → Delete your report (auth required)
 
 ### Authentication Endpoints
 
