@@ -2,7 +2,7 @@
 
 > A platform where Ethiopians can report and track local infrastructure problems in real time like, electricity outages, WiFi/internet failures, water shortages, road damage, and more. Built on a live map so communities stay informed.
 
-🔗 Live Demo: [Flagit-production.vercel.app](https://flagit-production.up.railway.app)
+🔗 Live Demo: [Flagit-production.vercel.app](https://flagit-beta.vercel.app/)
 🖥️ Backend API: [Flagit-api.up.railway.app](https://Flagit-api.up.railway.app)  
 👤 Built by: [Nathnael](https://github.com/ND1603) — Internship Project 2026
 
@@ -391,7 +391,7 @@ This project is open source under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-**Nathnael Dereje**  
+Nathnael Dereje
 Software Engineering Intern  
 [GitHub](https://github.com/ND1603) 
 
