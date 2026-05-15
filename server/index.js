@@ -4,15 +4,14 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const helmet = require('helmet');
-
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 
 dotenv.config();
 
-['PORT', 'MONGO_URI', 'JWT_SECRET'].forEach(key => {
+['MONGO_URI', 'JWT_SECRET'].forEach(key => {
   if (!process.env[key]) {
-    console.error(` Missing required environment variable: ${key}`);
+    console.error(`Missing required environment variable: ${key}`);
     process.exit(1);
   }
 });
@@ -27,20 +26,24 @@ const limiter = rateLimit({
 
 app.use(helmet());
 app.use(compression());
-
 app.use(limiter);
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://flagit-beta.vercel.app',
+    'https://flagit-production.vercel.app',
+    process.env.CLIENT_URL
+  ].filter(Boolean),
   credentials: true
 }));
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/reports', require('./routes/reports'));
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Flagit API is running ' });
+  res.json({ message: 'Flagit API is running' });
 });
 
 app.use((req, res) => {
@@ -53,12 +56,7 @@ app.use((err, req, res, next) => {
 });
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log(' MongoDB connected');
-    app.listen(process.env.PORT, () => {
-      console.log(` Server running on port ${process.env.PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error(' failed to connect to MongoDB:', err.message);
-  });
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('Failed to connect to MongoDB:', err.message));
+
+module.exports = app;
