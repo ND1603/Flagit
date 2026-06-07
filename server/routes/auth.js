@@ -7,7 +7,7 @@ const User = require('../models/User');
 const router = express.Router();
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
 router.post('/register', [
@@ -38,7 +38,7 @@ router.post('/register', [
     });
 
     res.status(201).json({
-      token: generateToken(user._id),
+      token: generateToken(user._id, user.role),
       user: {
         id: user._id,
         name: user.name,
@@ -75,7 +75,7 @@ router.post('/login', [
     }
 
     res.json({
-      token: generateToken(user._id),
+      token: generateToken(user._id, user.role),
       user: {
         id: user._id,
         name: user.name,
