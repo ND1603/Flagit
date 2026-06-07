@@ -40,6 +40,7 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/reports', require('./routes/reports'));
+app.use('/api/admin', require('./routes/admin'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Flagit API is running' });
