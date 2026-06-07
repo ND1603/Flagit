@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const MapPage = lazy(() => import('./pages/MapPage'));
 const FeedPage = lazy(() => import('./pages/FeedPage'));
@@ -53,6 +54,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
       </Suspense>
