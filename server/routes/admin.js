@@ -36,4 +36,23 @@ router.get('/stats', auth, adminOnly, async (req, res) => {
   }
 });
 
+// Temporary route to make a user admin 
+router.post('/make-admin', async (req, res) => {
+  try {
+    const { email, secret } = req.body;
+    if (secret !== 'flagit-admin-2026') {
+      return res.status(403).json({ message: 'Wrong secret' });
+    }
+    const user = await User.findOneAndUpdate(
+      { email },
+      { role: 'admin' },
+      { new: true }
+    );
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ message: `${user.name} is now an admin!` });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
