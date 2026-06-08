@@ -43,7 +43,8 @@ router.post('/register', [
         id: user._id,
         name: user.name,
         email: user.email,
-        city: user.city
+        city: user.city,
+        role: user.role
       }
     });
 
@@ -80,7 +81,8 @@ router.post('/login', [
         id: user._id,
         name: user.name,
         email: user.email,
-        city: user.city
+        city: user.city,
+        role: user.role
       }
     });
 
