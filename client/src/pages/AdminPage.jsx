@@ -13,9 +13,10 @@ export default function AdminPage() {
         setStats(res.data);
         setLoading(false);
       })
-      .catch(() => {
-        navigate("/");
-      });
+      .catch((err) => {
+    console.error('Admin error:', err.response?.data || err.message);
+    alert('Error: ' + (err.response?.data?.message || err.message));
+  });
   }, []);
 
   if (loading) return <div className="p-8 text-center">Loading dashboard...</div>;
