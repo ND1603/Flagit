@@ -8,7 +8,7 @@ export default function AdminPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get("/api/admin/stats")
+    api.get("/admin/stats")
       .then((res) => {
         setStats(res.data);
         setLoading(false);
