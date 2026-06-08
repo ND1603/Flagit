@@ -57,6 +57,9 @@ export default function Navbar() {
           {user ? (
             <>
               <Link to="/submit" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">+ Report</Link>
+              {user?.role === 'admin' && (
+  <Link to="/admin" className="hover:text-yellow-400 transition">Dashboard</Link>
+)}
               <Link to="/profile" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400">Profile</Link>
               <button onClick={handleLogout} className="text-left hover:text-red-400">Logout</button>
             </>
