@@ -19,7 +19,12 @@ const userSchema = new mongoose.Schema({
     city: {
         type: String,
         default: 'Dire Dawa'
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
-}, {timestamps: true });
+}, { timestamps: true });
 
-   module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
