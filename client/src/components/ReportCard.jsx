@@ -94,6 +94,7 @@ export default function ReportCard({ report, onUpvote, onResolve }) {
             Mark Resolved
           </button>
         )}
-      </div>
+     </div>
+    </div>
   );
 }
