@@ -35,6 +35,11 @@ const reportSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+   status: {
+    type: String,
+    enum: ['active', 'resolved'],
+    default: 'active'
+  },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
