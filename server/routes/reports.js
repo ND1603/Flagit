@@ -163,4 +163,28 @@ router.get('/my-reports', protect, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.put('/:id/resolve', protect, async (req, res) => {
+  try {
+    const report = await Report.findById(req.params.id);
+
+    if (!report) {
+      return res.status(404).json({ message: 'Report not found' });
+    }
+
+    const isOwner = report.submittedBy.toString() === req.user.id;
+    const isAdmin = req.user.role === 'admin';
+
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ message: 'Not authorized' });
+    }
+
+    report.status = 'resolved';
+    report.isActive = false;
+    await report.save();
+
+    res.json({ message: 'Report marked as resolved', report });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 module.exports = router;
