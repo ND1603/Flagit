@@ -4,7 +4,7 @@ import formatTimeAgo from '../timeHelper';
 import { useAuth } from '../context/AuthContext';
 import api from '../api';
 
-export default function ReportCard({ report, onUpvote }) {
+export default function ReportCard({ report, onUpvote, onResolve }) {
   const { user } = useAuth();
   const cfg = categoryConfig[report.type];
 
@@ -20,6 +20,15 @@ export default function ReportCard({ report, onUpvote }) {
   } catch (err) {
     toast.error('Failed to update confirmation');
     console.error('Upvote failed:', err);
+  }
+};
+  const handleResolve = async () => {
+  try {
+    await api.put(`/reports/${report._id}/resolve`);
+    toast.success('Report marked as resolved!');
+    if (onResolve) onResolve(report._id);
+  } catch (err) {
+    toast.error('Failed to resolve report');
   }
 };
   return (
@@ -64,14 +73,27 @@ export default function ReportCard({ report, onUpvote }) {
         />
       )}
 
-      <button
-        onClick={handleUpvote}
-        className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition"
-      >
-        <span className="text-lg">👍</span>
-        <span>{report.upvoteCount} confirmation{report.upvoteCount !== 1 ? 's' : ''}</span>
-      </button>
+     <div className="flex items-center justify-between">
+        <button
+          onClick={handleUpvote}
+          className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition"
+        >
+          <span className="text-lg">👍</span>
+          <span>{report.upvoteCount} confirmation{report.upvoteCount !== 1 ? 's' : ''}</span>
+        </button>
 
-    </div>
+        {report.status === 'resolved' ? (
+          <span className="text-xs bg-green-100 text-green-600 px-3 py-1 rounded-full font-medium">
+            ✅ Resolved
+          </span>
+        ) : (user && (user.id === report.submittedBy?._id || user.role === 'admin')) && (
+          <button
+            onClick={handleResolve}
+            className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-green-100 hover:text-green-600 transition"
+          >
+            Mark Resolved
+          </button>
+        )}
+      </div>
   );
 }
