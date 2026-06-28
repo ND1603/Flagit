@@ -87,4 +87,12 @@ export default function ReportCard({ report, onUpvote, onResolve }) {
         ) : (user && (user.id === report.submittedBy?._id || user.role === 'admin')) && (
           <button
             onClick={handleResolve}
-            className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-green-100 hover:text-green-600
+            className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full hover:bg-green-100 hover:text-green-600 transition"
+          >
+            {t.markResolved}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
